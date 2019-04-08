@@ -19,5 +19,10 @@ node{
          }
         sh 'docker push rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER'
       }
+      
+      stage('Run Docker Image'){
+      
+      }
+      
   }
       
