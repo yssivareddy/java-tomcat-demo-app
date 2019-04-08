@@ -23,7 +23,7 @@
 	  max-width: 100%;
 	  min-height: 20%;
 	  min-width: 30%;
-	  background-image: url("banner.PNG");
+	  background-image: url("banner.png");
 	  background-size: contain;
 	  background-repeat:no-repeat;
 	  background-position: center;
