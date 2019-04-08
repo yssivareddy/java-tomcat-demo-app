@@ -21,8 +21,23 @@ node{
       }
       
       stage('Run Docker Image'){
+             def dockerContainerName = 'javademoapp_$JOB_NAME:$BUILD_NUMBER'
+            def dockerRun= "sudo docker run -p 8081:8080 -d --name ${dockerContainerName} rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER" 
+            withCredentials([string(credentialsId: 'deploymentserverpwd', variable: 'dpPWD')]) {
+                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@54.173.16.4 ${dockerRun}"
+            }
       
       }
       
+      
+     /* stage('Deploy'){
+         def k8Apply= "kubectl apply -f deployment.yaml" 
+         withCredentials([string(credentialsId: 'k8pwdrajni', variable: 'k8PWD')]) {
+             sh "sshpass -p ${k8PWD} ssh -o StrictHostKeyChecking=no devops@54.196.52.131"  
+             sh "sshpass -p ${k8PWD} scp -r deployment.yaml devops@54.196.52.131:/home/devops" 
+             sh "sshpass -p ${k8PWD} ssh -o StrictHostKeyChecking=no devops@54.196.52.131 ${k8Apply}"
+         }
+       }
+      */
   }
       
