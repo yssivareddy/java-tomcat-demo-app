@@ -9,15 +9,15 @@ node{
          sh "${mvnHome}/bin/mvn package"
       }       
        
-       stage('Build Docker Image'){
-         sh 'docker build -t rajnikhattarrsinha/javademoapp6:2.0.0 .'
+     stage('Build Docker Image'){
+         sh 'docker build -t rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER .'
       }  
    
       stage('Publish Docker Image'){
          withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerPWD')]) {
               sh "docker login -u rajnikhattarrsinha -p ${dockerPWD}"
          }
-        sh 'docker push rajnikhattarrsinha/javademoapp6:2.0.0'
+        sh 'docker push rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER'
       }
   }
       
