@@ -27,7 +27,7 @@ node{
             def dockerRun= "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER" 
             withCredentials([string(credentialsId: 'deploymentserverpwd', variable: 'dpPWD')]) {
                  // sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@3.84.59.37 ${stopContainer}"
-                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@3.84.59.37 ${removeContainer}"
+                  //sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@3.84.59.37 ${removeContainer}"
                   sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@3.84.59.37 ${dockerRun}"
             }
       
