@@ -1,7 +1,7 @@
 node{
       
       stage('Checkout'){
-         git 'https://github.com/rajnikhattarrsinha/Java-Demo-Application'
+         git 'https://github.com/LovesCloud/java-tomcat-demo-app/'
       }
       stage('Build'){
          // Get maven home path and build
