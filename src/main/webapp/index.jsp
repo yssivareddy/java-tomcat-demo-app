@@ -139,7 +139,7 @@
             </div>
            <div class="col-md-4">
               <div class="card mb-4 box-shadow"> 
-               <img class="card-img-top" src="java.png" alt="Card image cap"> 
+               <img class="card-img-top" src="java.png" alt="Card image cap" width="243px;" style="text-align:center!important;"> 
                 <div class="card-body"> 
                    <p class="card-text">Validated & Certified</p> 
                  <div class="d-flex justify-content-between align-items-center"> 
