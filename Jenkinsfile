@@ -22,14 +22,14 @@ node{
          withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerPWD')]) {
               sh "docker login -u rajnikhattarrsinha -p ${dockerPWD}"
          }
-        sh 'docker push rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER'
+        sh "docker push ${dockerImageName}"
       }
       
     stage('Run Docker Image'){
             def dockerContainerName = 'javademoapp_$JOB_NAME_$BUILD_NUMBER'
              def changingPermission='sudo chmod +x stopscript.sh'
             def scriptRunner='sudo ./stopscript.sh'           
-            def dockerRun= "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER" 
+            def dockerRun= "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} ${dockerImageName}" 
             withCredentials([string(credentialsId: 'deploymentserverpwd', variable: 'dpPWD')]) {
                   sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@34.229.191.73" 
                   sh "sshpass -p ${dpPWD} scp -r stopscript.sh devops@34.229.191.73:/home/devops" 
