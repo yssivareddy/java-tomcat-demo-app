@@ -8,7 +8,12 @@ node{
          def mvnHome =  tool name: 'Maven 3.5.4', type: 'maven'   
          sh "${mvnHome}/bin/mvn package -Dmaven.test.skip=true"
       }       
-       
+     
+     stage ('Test'){
+         def mvnHome =  tool name: 'Maven 3.5.4', type: 'maven'    
+         sh "${mvnHome}/bin/mvn verify; sleep 3"
+      }
+      
      stage('Build Docker Image'){
          sh 'docker build -t rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER .'
       }  
@@ -23,10 +28,12 @@ node{
       stage('Run Docker Image'){
             def dockerContainerName = 'javademoapp_$JOB_NAME_$BUILD_NUMBER'
             def scriptRunner='sudo ./stopscript.sh'
+            def changingPermission='sudo chmod -x stopscript.sh'
             def dockerRun= "sudo docker run -p 8082:8080 -d --name ${dockerContainerName} rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER" 
             withCredentials([string(credentialsId: 'deploymentserverpwd', variable: 'dpPWD')]) {
                   sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@18.205.113.108" 
                   sh "sshpass -p ${dpPWD} scp -r stopscript.sh devops@18.205.113.108:/home/devops" 
+                  sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@18.205.113.108 ${changingPermission}"
                   sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@18.205.113.108 ${scriptRunner}"
                   sh "sshpass -p ${dpPWD} ssh -o StrictHostKeyChecking=no devops@18.205.113.108 ${dockerRun}"
             }
