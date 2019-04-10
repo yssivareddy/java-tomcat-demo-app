@@ -1,6 +1,6 @@
 node{
       
-      stage('Checkout'){
+      stage('SCM Checkout'){
          git 'https://github.com/LovesCloud/java-tomcat-demo-app/'
       }
       stage('Build'){
