@@ -1,5 +1,5 @@
 node{
-      
+      def dockerImageName= 'rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER'
       stage('SCM Checkout'){
          git 'https://github.com/LovesCloud/java-tomcat-demo-app/'
       }
@@ -15,7 +15,7 @@ node{
       }
       
      stage('Build Docker Image'){
-         sh 'docker build -t rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER .'
+           sh "docker build -t ${dockerImageName} ."
       }  
    
       stage('Publish Docker Image'){
@@ -25,7 +25,7 @@ node{
         sh 'docker push rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER'
       }
       
-      stage('Run Docker Image'){
+    stage('Run Docker Image'){
             def dockerContainerName = 'javademoapp_$JOB_NAME_$BUILD_NUMBER'
              def changingPermission='sudo chmod +x stopscript.sh'
             def scriptRunner='sudo ./stopscript.sh'           
@@ -39,6 +39,6 @@ node{
             }
       
       }
-          
+          */
   }
       
