@@ -23,7 +23,7 @@
     </dependency>
  </dependencies>
  <build>
-    <finalName>javatomcat1004</finalName>
+    <finalName>javatomcat1004_1</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
