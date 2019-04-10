@@ -1,5 +1,5 @@
 node{
-      def dockerImageName= 'rajni/javademoapp_$JOB_NAME:$BUILD_NUMBER'
+      def dockerImageName= 'rajnikhattarrsinha/javademoapp_$JOB_NAME:$BUILD_NUMBER'
       stage('SCM Checkout'){
          git 'https://github.com/LovesCloud/java-tomcat-demo-app/'
       }
